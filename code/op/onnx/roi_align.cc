@@ -24,7 +24,11 @@ std::string RoiAlignAttr::showValidKeys()
     return "";
 }
 
-const std::string RoiAlignOp::OpName = "roi_align";
+#ifdef OpName
+#undef OpName
+#endif
+#define OpName "roi_align"
+
 std::string RoiAlignOp::getName()
 {
     return OpName;
@@ -50,8 +54,8 @@ uint64_t RoiAlignOp::queryWorkspaceSize(MemType mem_type)
     return 0;
 }
 
-REGISTER_OP_ALLOCATOR(RoiAlignOp::OpName, Backend_Nvidia, RoiAlignOp);
-REGISTER_OP_ALLOCATOR(RoiAlignOp::OpName, Backend_Denglin, RoiAlignOp);
+REGISTER_OP_ALLOCATOR(OpName, Backend_Nvidia, RoiAlignOp);
+REGISTER_OP_ALLOCATOR(OpName, Backend_Denglin, RoiAlignOp);
 
 }
 }

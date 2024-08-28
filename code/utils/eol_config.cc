@@ -80,8 +80,8 @@ T getConfigValueWithDefaultValue(const std::string& config_key, const T& default
     return default_value;
 }
 
-template uint64_t getConfigValueWithDefaultValue(const std::string& config_key, const uint64_t& value);
-template float getConfigValueWithDefaultValue(const std::string& config_key, const float& value);
+template uint64_t    getConfigValueWithDefaultValue(const std::string& config_key, const uint64_t& value);
+template float       getConfigValueWithDefaultValue(const std::string& config_key, const float& value);
 template std::string getConfigValueWithDefaultValue(const std::string& config_key, const std::string& value);
 
 template<typename T>

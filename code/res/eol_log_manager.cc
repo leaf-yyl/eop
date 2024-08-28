@@ -76,9 +76,9 @@ const std::unordered_map<std::string, std::string> EolLogManager::s_config_map =
 
 void EolLogManager::showConfig()
 {
-    sendLogTask("Available config of log manager:");
+    DlLogI << "Available config of log manager:";
     for(const auto& [key, description] : s_config_map) {
-        sendLogTask(key + ": " + description);
+        DlLogI << "\t" << key << ": " << description;
     }
 }
 
@@ -91,8 +91,8 @@ void EolLogManager::updateConfig()
         m_log_level = (EolLogLevel)getConfigValueWithDefaultValue<uint64_t>("EOL_LOG_LEVEL", EolLogLevel_Info);
         m_log_module = collectConfigValue<std::string>("EOL_LOG_MODULE");
         m_log_dir = getConfigValueWithDefaultValue<std::string>("EOL_LOG_DIR", "");
-        m_log_interval = getConfigValueWithDefaultValue("EOL_LOG_INTERVAL", 10ull);
-        m_log_file_max_size = getConfigValueWithDefaultValue("EOL_LOG_FILE_SIZE", 64ull);
+        m_log_interval = getConfigValueWithDefaultValue<uint64_t>("EOL_LOG_INTERVAL", 10);
+        m_log_file_max_size = getConfigValueWithDefaultValue<uint64_t>("EOL_LOG_FILE_SIZE", 64);
     }
 }
 
@@ -130,7 +130,9 @@ bool EolLogManager::reachLogFileMaxSize(uint64_t size) {
     return size <= m_log_file_max_size * 1024 * 1024;
 }
 
-EolLogManager::EolLogManager() {
+EolLogManager::EolLogManager()
+    : EolRes("EolLogManager")
+{
     m_log_thread = new EolLogThread(*this);
     m_log_thread->startExecutor();
 

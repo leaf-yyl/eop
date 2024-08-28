@@ -1,6 +1,10 @@
 
 build/
+test/build/
 install/
+
+#Qt pro.user
+*.pro.user
 
 # Prerequisites
 *.d

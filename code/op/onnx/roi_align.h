@@ -23,13 +23,13 @@ public:
 class RoiAlignOp : public Op
 {
 public:
+    RoiAlignOp() {}
+
     std::string OP_API getName() override;
     bool OP_API inferType() override;
     bool OP_API inferStride() override;
     bool OP_API run() override;
     uint64_t OP_API queryWorkspaceSize(MemType mem_type) override;
-
-    static const std::string OpName;
 };
 
 }   // namespace onnx

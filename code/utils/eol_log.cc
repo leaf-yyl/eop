@@ -67,4 +67,5 @@ std::string EolLog::formatLogHeader()
     return ss_header.str();
 }
 
+
 } // namespace eol

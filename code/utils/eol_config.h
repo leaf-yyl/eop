@@ -15,8 +15,8 @@ void setConfigPath(const std::string& path);
 
 template<typename T>
 T getConfigValueWithDefaultValue(const std::string& config_key, const T& default_value);
-extern template uint64_t getConfigValueWithDefaultValue(const std::string& config_key, const uint64_t& value);
-extern template float getConfigValueWithDefaultValue(const std::string& config_key, const float& value);
+extern template uint64_t    getConfigValueWithDefaultValue(const std::string& config_key, const uint64_t& value);
+extern template float       getConfigValueWithDefaultValue(const std::string& config_key, const float& value);
 extern template std::string getConfigValueWithDefaultValue(const std::string& config_key, const std::string& value);
 
 template<typename T>

@@ -86,7 +86,7 @@ private:
     void* m_buffer = nullptr;
 };
 
-typedef SmallArray<Tensor*> Tensors;
+typedef SmallArray<Tensor> Tensors;
 
 }   // namespace eol
 

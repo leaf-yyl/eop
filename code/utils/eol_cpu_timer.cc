@@ -28,7 +28,7 @@ void EolTimer::stop()
     if(m_is_on_timing) {
         m_is_on_timing = false;
         auto tp = std::chrono::high_resolution_clock::now();
-        m_last_time = std::chrono::duration<std::chrono::nanoseconds>(tp - m_start_tp).count();
+        m_last_time = std::chrono::duration_cast<std::chrono::nanoseconds>(tp - m_start_tp).count();
         m_count++;
         m_total_time += m_last_time;
     }

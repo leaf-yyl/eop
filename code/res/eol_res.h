@@ -13,11 +13,15 @@ namespace eol {
 class EolRes
 {
 public:
+    EolRes(std:: string res_name) { m_res_name = res_name; }
     virtual ~EolRes() {}
 
 protected:
-    virtual void showConfig() = 0;
-    virtual void updateConfig() = 0;
+    std::string m_res_name;
+
+protected:
+    virtual void showConfig();
+    virtual void updateConfig();
 };
 
 }

@@ -45,25 +45,25 @@ public:
         return eol_op_manager;
     }
 
+    void showAvaiableOps();
+    std::map<std::string, std::vector<Backend>> getAvaiableOps();
+
     Op* createOp(const std::string& op_name, Backend backend);
     void releaseOp(Op* op);
 
     bool isOpAvailable(const std::string& op_name, Backend backend);
     void registerOpAllocator(const std::string& op_name, Backend backend, OpAllocator* op_allocator);
 
-protected:
-    void showConfig() override;
-    void updateConfig() override;
-
 private:
     OpManager();
     OpManager(OpManager&) = delete;
     OpManager& operator = (const OpManager&) = delete;
 
+private:
     std::mutex m_mutex;
     std::unordered_map<Op*, Backend> m_map_created_op_backend;
     std::unordered_map<Op*, std::string> m_map_created_op_name;
-    std::map<Backend, std::map<std::string, OpAllocator*>> m_map_backend_op_allocator;
+    std::map<std::string, std::map<Backend, OpAllocator*>> m_map_backend_op_allocator;
 };
 
 #define REGISTER_OP_ALLOCATOR(OpName, Backend, Op) \

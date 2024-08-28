@@ -137,9 +137,9 @@ public:
         std::stringstream ss;
         for(const auto& [key, value] : m_attributes) {
             ss << "Key: " << key << ", Value: ";
-            std::visit([](std::stringstream& ss, auto&& arg) {
+            std::visit([&ss](const auto& arg) {
                             ss << arg << "\n";
-                       }, ss, value);
+                       }, value);
         }
         return ss.str();
     }

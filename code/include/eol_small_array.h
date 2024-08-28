@@ -16,13 +16,16 @@ namespace eol {
 template<typename T, size_t Capacity = 8>
 class OP_EXPORT SmallArray {
 public:
-//    using value_type = T;
-    using iterator = T *;
-    using const_iterator = T *const;
+    using value_type = T;
+    using iterator = value_type *;
+    using const_iterator = const value_type *;
 
-    SmallArray(size_t size) noexcept {
-        ASSERT_WITH_MSG(size <= Capacity, "Size of small array should be less then Capacity");
-        m_size = size;
+    SmallArray() noexcept {}
+
+    SmallArray(const T& e) noexcept {
+        m_size = 1;
+        ASSERT_WITH_MSG(m_size <= Capacity, "Size of small array should be less then Capacity");
+        m_array[0] = e;
     }
 
     SmallArray(const std::initializer_list<T>& init_list) noexcept {
@@ -40,27 +43,27 @@ public:
     SmallArray(SmallArray&& other) noexcept {
         m_size = other.getSize();
         ASSERT_WITH_MSG(m_size <= Capacity, "Size of small array should be less then Capacity");
-        std::copy(other.begin(), other.end(), m_array.begin());
+        m_array = std::move(other.m_array);
+//        std::copy(other.begin(), other.end(), m_array.begin());
     }
 
     SmallArray& OP_API operator=(const SmallArray& other) {
-        if(*this == other) {
-            return *this;
-        } else {
+        if(this != &other) {
             m_size = other.getSize();
             ASSERT_WITH_MSG(m_size <= Capacity, "Size of small array should be less then Capacity");
             std::copy(other.begin(), other.end(), m_array.begin());
         }
+        return *this;
     }
 
     SmallArray& OP_API operator=(SmallArray&& other) {
-        if(*this == other) {
-            return *this;
-        } else {
+        if(this != &other) {
             m_size = other.getSize();
             ASSERT_WITH_MSG(m_size <= Capacity, "Size of small array should be less then Capacity");
-            std::copy(other.begin(), other.end(), m_array.begin());
+            m_array = std::move(other.m_array);
+//            std::copy(other.begin(), other.end(), m_array.begin());
         }
+        return *this;
     }
 
     const T& OP_API at(int32_t idx) const {
@@ -111,7 +114,7 @@ public:
     }
 
     const_iterator OP_API end() const noexcept {
-        return m_array.end() + m_size;
+        return m_array.begin() + m_size;
     }
 
 private:
@@ -123,7 +126,7 @@ private:
     }
 
 private:
-    size_t m_size;
+    size_t m_size = 0;
     std::array<T, Capacity> m_array;
 };
 
